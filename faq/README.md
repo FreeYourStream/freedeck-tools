@@ -63,6 +63,9 @@ The SD card should be formatted mbt FAT32 (On windows, just FAT32)
 #### config.bin file
 Format the SD card, and put it as only file on the SD card, not in a folder or anything
 
+#### Still issues?
+Look at the software part
+
 ### One of the screens isn't turning on
 
 #### Check the voltages. 
@@ -73,6 +76,20 @@ Increase the boot delay in software. Some screens take some more time with start
 
 #### Reset
 For some strange reason, we haven't figured out yet, the screens wont turn on on boot, but will on a reset. Short the GND and RST pins on the arduino, they might turn on then.
+
+#### Still not?
+In the software you can play around with the I2C_delay (change it to 10, and slowly lower it).
+
+### The screens are snowy, or display everything out of order
+
+#### Out of order
+In or descrease the IMG_CACHE_SIZE, this might resolve the issue
+
+#### Snowy displays
+Change the I2C_DELAY time to 10, and slowly decrease it untill it becomes unstable
+
+#### Something else
+Please visit us on Discord (Link somewhere on this page)
 
 ### The buttons don't work
 
@@ -114,3 +131,10 @@ The main contributors are:
 - Koriwi
 - AdamWelchUk
 - All of you the Freedeck users
+
+
+## Configurator links
+
+## 3D files links
+
+
