@@ -7,7 +7,7 @@
 #### Through hole PCB (Adviced to starters in soldering)
 You will need:
 - PCB / Perfboard
-- Arduino Pro Micro (3u24, 16MHz, 5V)
+- Arduino Pro Micro (32u4, 16MHz, 5V)
 - 2x 4051 Multiplexers
 - 6x SSD1306 0.96" OLED
 - 6x 3x4x2mm SMD buttons
