@@ -1,12 +1,6 @@
 # freedeck-tools
 Nice tools for the Freedeck
 
-## AutoHotKey
-AutoHotKey is a little program that allows you to script and create macro's with relativly simple code. In the AutoHotKey folder you can find an
-example config file with an example ahk file to see the working.
-
-In order for the AHK script to work, you need to enable keywrapping on the arduino part.
-
 ## CAD-Files
 For an nice enclosure for the Freedeck there are a couple pre made CAD files that you can print yourself on a 3D printer.
 - https://www.thingiverse.com/thing:4511644 Through Hole 3x2 Case(By AdamWelch)
@@ -27,6 +21,19 @@ chromium,3
 ...
 ```
 When you are using chrome it will switch to page 3.
-### Caveats
+
+#### Caveats
+- This only works with the freedeck-ino develop branch right now.
+- You have to add a blank line to `page_list.txt` or else the last line won't be read.
+
+## Windows
+
+### Page Switcher
+
+This tool can automatically switch the active page of the FreeDeck depending on the active window. Just add your desired pages to the `page_list.txt`.
+
+How to get the name? #todo
+
+#### Caveats
 - This only works with the freedeck-ino develop branch right now.
 - You have to add a blank line to `page_list.txt` or else the last line won't be read.
