@@ -1,10 +1,15 @@
 # freedeck-tools
 Nice tools for the Freedeck
 
-## CAD-Files
+## CAD-Files 
+### PCB Version 1.0
 For an nice enclosure for the Freedeck there are a couple pre made CAD files that you can print yourself on a 3D printer.
 - https://www.thingiverse.com/thing:4511644 Through Hole 3x2 Case(By AdamWelch)
 - https://www.thingiverse.com/thing:4566274 Through Hole 3x2 Case Screwless (By Thijseigenwijs)
+
+### Version 1.1 / Version 1.2
+There are no enclosures yet. If you made one, let us know the link to the files, and we will publish them here
+
 
 # Tools that work with the FreeDeck
 
