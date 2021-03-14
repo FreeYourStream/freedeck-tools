@@ -1,0 +1,15 @@
+Step 1: Open a powershell or CMD windows
+Step 2: enter the command python
+
+If you get something like this
+Python 3.9.1 (tags/v3.9.1:1e5d33e, Dec  7 2020, 17:08:21) [MSC v.1927 64 bit (AMD64)] on win32
+go to step 5
+
+Step 3: If the windows store didn't open, type python3
+Step 4: Install the program from the Windows store
+
+Step 5: Install the dependencies with
+ 'pip install -r pip_requirements.txt --user'
+
+Step 6: Start the script
+ 'python auto_page_switcher.py'
