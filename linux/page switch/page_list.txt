@@ -1,0 +1,3 @@
+ts3client_linux,1
+Discord,1
+chromium,2
