@@ -33,12 +33,15 @@ When you are using chrome it will switch to page 3.
 
 ## Windows
 
-### Page Switcher
+### Page Switcher (Python and powershell script)
 
-This tool can automatically switch the active page of the FreeDeck depending on the active window. Just add your desired pages to the `page_list.txt`. To get the name the script is looking for, just run the script and click a window. It will give you the name you need to put into the `page_list.txt` followed by a comma and the page number. After you have changed the `page_list.txt` you need to restart the python script again
+This tool can automatically switch the active page of the FreeDeck depending on the active window. Just add your desired pages to the `page_list.txt`. To get the name the script is looking for, just run the script and click a window. It will give you the name you need to put into the `page_list.txt` followed by a comma and the page number. After you have changed the `page_list.txt` you need to restart the script again
+
+You can pick between the python and powershell version. The pythonscript is much faster, but requires you to install python.
 
 
 #### Caveats
 - This only works with the freedeck-ino develop branch right now.
 - You have to add a blank line to `page_list.txt` or else the last line won't be read.
-- You need python3 in order to run this script. Install instructions can be found in `windows\installGuide.txt`
+- (Python) You need python3 in order to run this script. Install instructions can be found in `windows\installGuide.txt`
+- (Powershell) Its not that fast, despite having no delays in the script
