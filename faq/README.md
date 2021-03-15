@@ -60,6 +60,9 @@ The voltage between GND and VCC should be between 5V and 4V. At SCK and SDA it s
 #### Formatting SD card
 The SD card should be formatted mbt FAT32 (On windows, just FAT32)
 
+#### Image cache
+Please play around with the settings.h image cache, this can give a lot of issues
+
 #### config.bin file
 Format the SD card, and put it as only file on the SD card, not in a folder or anything
 
