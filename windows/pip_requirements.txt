@@ -1,0 +1,4 @@
+psutil==5.8.0
+pyserial==3.5
+pywin32==300
+wmi==1.5.1
