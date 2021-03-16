@@ -6,7 +6,7 @@ import threading, win32gui, win32process, psutil
 from win32gui import GetWindowText, GetForegroundWindow
 
 # Everything for the serial connection
-freedeckPort = "COM12" # or \dev\ttyACM0
+freedeckPort = "COM12" # or /dev/ttyACM0
 freedeck = serial.Serial(freedeckPort, '4000000') # Create the freedeck communication port
 
 # Create the process list

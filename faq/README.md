@@ -13,7 +13,7 @@ You will need:
 - 6x 3x4x2mm SMD buttons
 - SPI-SDcard reader (Micro SD form)
 
-#### SMD varient (For advanced solderers)
+#### SMD variant (For advanced solderers)
 See the BOM with the PCB you are using
 
 ### Where can I find resources
@@ -23,15 +23,15 @@ You can find resources in the various github repo's, or you can ask us in the [d
 We do have a good experience with [JLCPCB](https://jlcpcb.com) (Not affilated). You can also find some other company like EuroCurcuits
 
 ### What do i need to order the PCB
-The GERBER-file zip that you can find in the hardware github repo
+The GERBER-file zip that you can find in the hardware github repo [Download Gerber Zip](https://github.com/FreeYourStream/freedeck-hardware/blob/master/3x2/ThroughHole/Gerber_FreeDeck%20Rev%201.2.zip)
 
-## Manufaturing
+## Manufacturing
 
 ### Is there a specific order to solder the components in?
 Yes, we are currently making a guide on how to solder the components
 
 ### Some pins are harder to solder
-Correct, the GND pins are harder to get to temperature. Have some patient, and let the solder flow. If it doesn't flow, the board might be bad on the long run.
+Correct, the GND pins are harder to get to temperature. Have some patience, and let the solder flow. If it doesn't flow, the board might be bad on the long run.
 (Insert pictures of good and bad soldering connections as example)
 
 ### I did something wrong, and now?
@@ -40,7 +40,7 @@ Try carefully to heat all the pins. What ever you do, **DO NOT FORCE IT, YOU WIL
 ## Programming
 
 ### Libraries are missing
-In case the Arduino IDE says you're missing some libraries, please install the SD-FAT and HID-Project libraries. How? [Read this guide](https://www.arduino.cc/en/guide/libraries)
+In case the Arduino IDE says you're missing some libraries, please install the SD-FAT Version 1.x (2.0 and above don't work) and HID-Project libraries. How? [Read this guide](https://www.arduino.cc/en/guide/libraries)
 
 ### Device / COM-port not found.
 Unplug the device, wait 10 seconds, plug it in again. Select the right port and try to upload it.
@@ -58,10 +58,10 @@ The voltage between GND and VCC should be between 5V and 4V. At SCK and SDA it s
 ### The screens are white
 (Insert picture)
 #### Formatting SD card
-The SD card should be formatted mbt FAT32 (On windows, just FAT32)
+The SD card should be formatted mbr FAT32 (On windows, just FAT32)
 
 #### Image cache
-Please play around with the settings.h image cache, this can give a lot of issues
+Please play around with the settings.h image cache, this can give a lot of issues. As starting point we recommend 128 or 512.
 
 #### config.bin file
 Format the SD card, and put it as only file on the SD card, not in a folder or anything
@@ -132,7 +132,8 @@ Currently there is not really  a way, but you can always give us a star on Githu
 ## Who are the contributors?
 The main contributors are:
 - Koriwi
-- AdamWelchUk
+- AdamWelchUk (Youtube / First PCB)
+- Thijseigenwijs
 - All of you the Freedeck users
 
 
