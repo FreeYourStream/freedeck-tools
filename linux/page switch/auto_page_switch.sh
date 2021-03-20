@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 for sysdevpath in $(find /sys/bus/usb/devices/usb*/ -name dev); do
     (
         syspath="${sysdevpath%/dev}"
@@ -18,14 +20,31 @@ INPUT="page_list.txt"
 [ ! -f $INPUT ] && { echo "$INPUT file not found"; exit 99; }
 
 NAME_LIST=()
-PAGE_LIST=()
+PAGE_START_LIST=()
+PAGE_END_LIST=()
 
-while IFS="," read -r process_name page_index; do
+while IFS="," read -r process_name page_start page_end; do
     NAME_LIST+=($process_name)
-    PAGE_LIST+=($page_index)
-done < $INPUT
+    PAGE_START_LIST+=($page_start)
+    echo $page_end
+    PAGE_END_LIST+=(${page_end:=0})
 
+done < $INPUT
+echo "asd" ${PAGE_END_LIST[@]}
 LAST_PROCESS_NAME=""
+
+DEVICE=$(cat .device_path)
+
+changePage() {
+  # echo $PAGE
+  START="${1//[$'\t\r\n ']}"
+  END="${2//[$'\t\r\n ']}"
+  TARGET="${3//[$'\t\r\n ']}"
+  echo $START $END $TARGET
+  if [[ "$TARGET" -gt "$END" ]] || [[ "$TARGET" -lt "$START" ]]; then
+    echo -ne "\x3\n\x31\n$1\n" > "$DEVICE"
+  fi;
+}
 
 while true; do
 
@@ -37,12 +56,11 @@ while true; do
     LAST_PROCESS_NAME=$PROCESS_NAME
     for i in ${!NAME_LIST[*]}; do
       NAME="${NAME_LIST[i]}"
-      PAGE="${PAGE_LIST[i]}"
+      PAGE_START="${PAGE_START_LIST[i]}"
+      PAGE_END="${PAGE_END_LIST[i]}"
       if [ "$NAME" = "$PROCESS_NAME" ]; then
-        DEVICE=$(cat .device_path)
-        echo -n -e '\x3' > "$DEVICE"
-        echo -n "$PAGE" > "$DEVICE"
-        # echo "$PAGE"
+        (read RESULT < "$DEVICE"; changePage $PAGE_START $PAGE_END $RESULT)&
+        echo -ne "\x3\n\x30\n" > "$DEVICE"
       fi
     done
   fi;
