@@ -1,13 +1,18 @@
+#!/bin/python3
 
 import psutil
 import serial
 import time
-import threading, win32gui, win32process, psutil
-from win32gui import GetWindowText, GetForegroundWindow
+import psutil
+import os
 
 # Everything for the serial connection
-freedeckPort = "COM12" # or /dev/ttyACM0
-freedeck = serial.Serial(freedeckPort, '4000000') # Create the freedeck communication port
+if os.name == 'nt':
+    freedeckPort = "COM12"  # or /dev/ttyACM0
+else:
+    freedeckPort = "/dev/ttyACM4"
+# Create the freedeck communication port
+freedeck = serial.Serial(freedeckPort, '4000000')
 
 # Create the process list
 processList = []
@@ -22,9 +27,21 @@ processNameLast = "-"
 
 # The while loop
 while(1):
-    pid = win32process.GetWindowThreadProcessId(win32gui.GetForegroundWindow()) #This produces a list of PIDs active window relates to
-    processName = psutil.Process(pid[-1]).name()
-    processName = processName.split(".exe")[0]
+    if os.name == 'nt':
+        import win32gui
+        import win32process
+        # This produces a list of PIDs active window relates to
+        pid = win32process.GetWindowThreadProcessId(
+            win32gui.GetForegroundWindow())
+        processName = psutil.Process(pid[-1]).name()
+        processName = processName.split(".exe")[0]
+    else:
+        bashCMD = [
+            "bash", "-c", "cat /proc/$(xdotool getwindowpid $(xdotool getwindowfocus))/cmdline | tr '\\0' ' '"]
+        import subprocess
+        process = subprocess.Popen(bashCMD, stdout=subprocess.PIPE)
+        processPath, error = process.communicate()
+        processName = processPath.decode('utf-8').split("/")[-1].split(" ")[0]
 
     if processName != processNameLast:  # If its not the same as last
         processNameLast = processName   # Make it the last so we dont check again
@@ -32,9 +49,16 @@ while(1):
         for process in processList:
             processLine = process.split(",")
             if processLine[0] == processName:
-                freedeck.write(str.encode("3"))
-                freedeck.write(str.encode(processLine[1].strip(" ")[0]))
+                packet = bytearray()
+                packet.append(0x3)
+                packet.append(0xa)
+                packet.append(0x31)
+                packet.append(0xa)
+                packet.append(ord(processLine[1].strip(" ")[0]))
+                packet.append(0xa)
+                freedeck.write(packet)
 
-                print("Found process: ", processLine[0], "so send ", processLine[1], "to the freedeck")
+                print("Found process: ",
+                      processLine[0], "so send ", processLine[1], "to the freedeck")
 
     time.sleep(0.1)
