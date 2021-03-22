@@ -1,12 +1,11 @@
 #!/bin/python3
 
-from lib.utils import getWindowProcessName
+from typing import get_args
 from lib.api import FreeDeckSerialAPI
+from lib.utils import getWindowProcessName
 import time
 
-
 freedeck = FreeDeckSerialAPI()
-
 
 pageListFile = open("page_list.txt", "r")
 
@@ -40,10 +39,11 @@ while(1):
                 continue
             if end != None:
                 currentPage = freedeck.getCurrentPage()
+                print("CURRENTPAGE", currentPage)
                 if start <= currentPage and end >= currentPage:
                     break
 
-            freedeck.setCurrentPage(start)
+            print(freedeck.setCurrentPage(start))
             print("=>", name, "=", start, "=> freedeck")
 
     time.sleep(0.02)
