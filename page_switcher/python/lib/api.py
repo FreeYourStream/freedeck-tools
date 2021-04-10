@@ -2,8 +2,13 @@ from typing import Iterable
 from .utils import getFreeDeckPort
 import serial
 
+# you should wait (number of displays * 30ms) after a page changing command
+# if you want to immediately call the api again to give the freedeck time
+# to finish refreshing
+
 commands = {
     "init": 0x3,
+    "getFirmwareVersion": 0x10,
     "getCurrentPage": 0x30,
     "setCurrentPage": 0x31,
     "getPageCount": 0x32
@@ -48,6 +53,9 @@ class FreeDeckSerialAPI:
         self.freedeck.read_all()
         self.freedeck.write(self.prepare(data))
         return self.freedeck.read_until().decode('utf-8').rstrip("\r\n")
+
+    def getFirmwareVersion(self):
+        return self.readWrite([commands['init'], commands["getFirmwareVersion"]])
 
     def getCurrentPage(self):
         return int(self.readWrite([commands['init'], commands["getCurrentPage"]]))

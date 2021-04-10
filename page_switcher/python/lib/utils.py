@@ -51,6 +51,7 @@ def findFreeDeckDeviceLinux():
             "eval $(udevadm info -q property --export -p %s) && echo $ID_VENDOR_ID:$ID_MODEL_ID:$SUBSYSTEM" % devicePath)
         identifier = binaryToString(info)
         if identifier == "2341:8037:tty":
+            print("found device on %s" % deviceName)
             return "/dev/%s" % deviceName
     return "/dev/ttyACM0"
 
