@@ -1,8 +1,8 @@
 #!/bin/python3
 
 from typing import get_args
-from lib.api import FreeDeckSerialAPI
-from lib.utils import getWindowProcessName
+from fdserial.api import FreeDeckSerialAPI
+from fdserial.utils import getWindowProcessName
 import time
 
 freedeck = FreeDeckSerialAPI()
