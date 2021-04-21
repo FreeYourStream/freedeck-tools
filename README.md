@@ -11,7 +11,7 @@ You can pick between the python, powershell and bash version. The pythonscript i
 
 1. Install python3 (windows users click [here](https://www.microsoft.com/de-de/p/python-38/9mssztt1n39l) or [here](https://www.python.org/downloads/windows/))
 2. Check if it's installed correctly by typing `python3 --version` in a console. It should show something like `Python 3.9.1`
-3. Navigate a console to the folder containing the script and type `pip install -r pip-windows.txt --user` or `pip install -r pip-unix.txt --user` for linux, mac, etc...
+3. Navigate a console to the folder containing the script and type `pip install -r requirements.txt --user`
 4. Configure the page_list.txt as described below
 5. Launch the `auto_page_switch.py` script. Either by double clicking on it or by navigating a console to the folder that contains the script. Then type `python auto_page_switch.py`
 
