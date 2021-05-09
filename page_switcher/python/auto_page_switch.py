@@ -2,10 +2,30 @@
 
 from typing import get_args
 from fdserial.api import FreeDeckSerialAPI
-from fdserial.utils import getWindowProcessName
 import time
+import os
 
-freedeck = FreeDeckSerialAPI()
+
+def getWindowProcessName():
+    if os.name == 'nt':
+        import win32gui
+        import win32process
+        # This produces a list of PIDs active window relates to
+        pid = win32process.GetWindowThreadProcessId(
+            win32gui.GetForegroundWindow())
+        processName = psutil.Process(pid[-1]).name()
+        processName = processName.split(".exe")[0]
+    else:
+        bashCMD = [
+            "bash", "-c", "cat /proc/$(xdotool getwindowpid $(xdotool getwindowfocus))/cmdline | tr '\\0' ' '"]
+        import subprocess
+        process = subprocess.Popen(bashCMD, stdout=subprocess.PIPE)
+        processPath, error = process.communicate()
+        processName = processPath.decode('utf-8').split("/")[-1].split(" ")[0]
+    return processName
+
+
+freedeck = FreeDeckSerialAPI(port="/dev/ttyACM0")
 
 pageListFile = open("page_list.txt", "r")
 
