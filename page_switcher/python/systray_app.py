@@ -286,7 +286,7 @@ if __name__ == '__main__':
 
     freedeck = FreeDeckSerialAPI()
 
-    icons = itertools.cycle(glob.glob('icons/*.ico'))
+    icons = itertools.cycle(glob.glob('*.ico'))
     hover_text = "FreeDeck Assistent by LSH"
     def pause(sysTrayIcon):
         if th.is_alive():
