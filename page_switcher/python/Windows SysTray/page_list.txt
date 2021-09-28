@@ -1,4 +1,4 @@
-Code:2
-Discord:4
-Eclipse:3
-Teams:6
+Code,2
+Discord,4
+Eclipse,3
+Teams,6

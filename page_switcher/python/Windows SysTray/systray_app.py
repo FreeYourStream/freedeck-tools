@@ -276,7 +276,7 @@ if __name__ == '__main__':
         temp_line = line
         line = line.replace("\n", "")
         line = line.replace("\r", "")
-        if len(line.split(":")) == 2:
+        if len(line.split(",")) == 2:
             try:
                 config[line.split(":")[0]] = int(line.split(":")[1])
             except:
