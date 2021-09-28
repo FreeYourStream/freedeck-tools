@@ -1,0 +1,5 @@
+ts3client_linux_amd64,1
+Discord,1
+chromium,2,4
+gnome-terminal-server,7
+code,10
