@@ -38,7 +38,7 @@ class SysTrayIcon(object):
 
         chrome_path : str ="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
         edge_path : str ="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
-        // Select Browser
+        # Select Browser
         web.register("edge", None, web.BackgroundBrowser(edge_path))
 
         self.icon = icon
