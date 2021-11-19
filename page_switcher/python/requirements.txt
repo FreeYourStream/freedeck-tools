@@ -1,5 +1,5 @@
 psutil==5.8.0
-freedeck-serial-api==0.1.0
+freedeck-serial-api==0.2.0
 pywin32==300; sys_platform=='win32'
 wmi==1.5.1; sys_platform=='win32'
 psutil==5.8.0; sys_platform=='linux'
