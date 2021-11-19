@@ -32,8 +32,16 @@ pageListFile = open("page_list.txt", "r")
 
 # Create the page list
 page_list = []
+default_index = -1
 for row in map(lambda row: row.rstrip("\r\n"), pageListFile.readlines()):
-    cols = row.split(",")
+    if row[0] == "#":
+        continue
+
+    cols = row.split("#")[0].split(",")
+
+    if cols[0] == 'DEFAULT':
+        default_index = int(cols[1])
+        continue
 
     row = []
     row.append(cols[0])  # name
@@ -55,8 +63,10 @@ while(1):
     if processName != processNameLast:  # If its not the same as last
         processNameLast = processName   # Make it the last so we dont check again
         print("Active window:", processName)
-        for name, start, end in page_list:
+        for index, (name, start, end) in enumerate(page_list):
             if name.lower() not in processName.lower():
+                if(index == len(page_list) - 1 and default_index != -1):
+                    freedeck.setCurrentPage(default_index)
                 continue
             if end != None:
                 currentPage = freedeck.getCurrentPage()
@@ -64,5 +74,6 @@ while(1):
                     break
             freedeck.setCurrentPage(start)
             print("Matched =>", name, "= Page", start)
+            break
 
     time.sleep(0.02)
