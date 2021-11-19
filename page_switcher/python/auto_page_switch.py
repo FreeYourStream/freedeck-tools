@@ -17,16 +17,17 @@ def getWindowProcessName():
         processName = processName.split(".exe")[0]
     else:
         bashCMD = [
-            "bash", "-c", "cat /proc/$(xdotool getwindowpid $(xdotool getwindowfocus))/cmdline | tr '\\0' ' '"]
+            "bash", "-c", "xprop -id $(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2) _NET_WM_NAME 2>/dev/null | awk -F= '{print($2)}' "]  # "cat /proc/$(xdotool getwindowpid $(xdotool getwindowfocus))/cmdline | tr '\\0' ' '"]
         import subprocess
         process = subprocess.Popen(bashCMD, stdout=subprocess.PIPE)
-        processPath, error = process.communicate()
-        processName = processPath.decode('utf-8').split("/")[-1].split(" ")[0]
+        windowName, error = process.communicate()
+        processName = windowName.decode('utf-8').strip("\n\" ")
+        if processName == "":
+            return "unknown"
     return processName
 
 
 freedeck = FreeDeckSerialAPI(port="/dev/ttyACM0")
-
 pageListFile = open("page_list.txt", "r")
 
 # Create the page list
@@ -55,15 +56,13 @@ while(1):
         processNameLast = processName   # Make it the last so we dont check again
         print("Active window:", processName)
         for name, start, end in page_list:
-            if name != processName:
+            if name.lower() not in processName.lower():
                 continue
             if end != None:
                 currentPage = freedeck.getCurrentPage()
-                print("CURRENTPAGE", currentPage)
                 if start <= currentPage and end >= currentPage:
                     break
-
-            print(freedeck.setCurrentPage(start))
-            print("=>", name, "=", start, "=> freedeck")
+            freedeck.setCurrentPage(start)
+            print("Matched =>", name, "= Page", start)
 
     time.sleep(0.02)
