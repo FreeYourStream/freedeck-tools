@@ -5,6 +5,6 @@
 3. Open PowerShell or CMD to your liking and use `cd` to make to the folder where the scripts are located.
 4. Within the folder run the following command to install the required python packages: `pip3 install -r requirements.txt`.
 5. Make sure the correct serial (com) port has been selected within the script.
-6. Run the script using the commando `python auto_page_switcher.py`
+6. Run the script using the command: `python auto_page_switcher.py`
 
 ## Linux
