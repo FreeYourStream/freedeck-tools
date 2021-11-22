@@ -4,7 +4,6 @@
 from fdserial.api import FreeDeckSerialAPI
 import time
 import os
-import psutil
 
 # \/ EDIT BELOW IF REQUIRED \/ #
 
@@ -23,11 +22,13 @@ Import the required packages for Windows
 def import_win_packages():
     global win32gui
     global win32process
+    global psutil
 
     # Import the required packages for Windows
     if os.name == 'nt':
         import win32gui
         import win32process
+        import psutil
     
     return
 
