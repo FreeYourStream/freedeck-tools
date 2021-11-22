@@ -11,7 +11,7 @@ config = {
     # File in wich the processes are saved
     "pageFile": 'page_list.txt',
     # Define which serial port to use
-    "serialPort": 'com5'
+    "serialPort": 'com14'
 }
 
 # \/ DO NOT EDIT BELOW \/ #
@@ -58,7 +58,7 @@ def getWindowProcessName():
 """
 Create a list with all the mapped programs from the page_list file.
 """
-def createPageList():
+def createPageList(pageListFile):
     page_list = list()
     default_index = -1
     for row in map(lambda row: row.rstrip("\r\n"), pageListFile.readlines()):
@@ -100,7 +100,7 @@ Read the contents of the page_list file. If an Exception occurs print the Except
 """
 try:
     pageListFile = open(config['pageFile'], "r") # Open the page_list file.
-    page_list, default_index = createPageList() # List of all programs which are in the page_list file.
+    page_list, default_index = createPageList(pageListFile) # List of all programs which are in the page_list file.
 except Exception as exception:
     print(exception) # print the error
     print('\033[91m[ERROR]: Your page_file could not be read !\033[0;0m') # print a human readable error message
