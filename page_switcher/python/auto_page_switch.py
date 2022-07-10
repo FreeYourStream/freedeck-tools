@@ -4,6 +4,8 @@ from typing import get_args
 from fdserial.api import FreeDeckSerialAPI
 import time
 import os
+from discord import discord_rpc, images
+discord = discord_rpc.DiscordIpcClient.for_platform()
 
 
 def getWindowProcessName():
@@ -27,9 +29,9 @@ def getWindowProcessName():
     return processName
 
 
-freedeck = FreeDeckSerialAPI(port="/dev/ttyACM0")
+freedeck = FreeDeckSerialAPI()
 pageListFile = open("page_list.txt", "r")
-
+current_page = 0
 # Create the page list
 page_list = []
 default_index = -1
@@ -56,15 +58,18 @@ for row in map(lambda row: row.rstrip("\r\n"), pageListFile.readlines()):
 
 # Some variable to track things
 processNameLast = "-"
-
+last_mute_status = False
+last_deaf_status = False
 # The while loop
 while(1):
+    status, voice_status = discord.get_voice_status()
+
     processName = getWindowProcessName()
     if processName != processNameLast:  # If its not the same as last
         processNameLast = processName   # Make it the last so we dont check again
         print("Active window:", processName)
         for index, (name, start, end) in enumerate(page_list):
-            if name.lower() not in processName.lower():
+            if name.lower() not in processName.lower().split('-')[-1].strip():
                 if(index == len(page_list) - 1 and default_index != -1):
                     freedeck.setCurrentPage(default_index)
                 continue
@@ -72,8 +77,23 @@ while(1):
                 currentPage = freedeck.getCurrentPage()
                 if start <= currentPage and end >= currentPage:
                     break
+
             freedeck.setCurrentPage(start)
             print("Matched =>", name, "= Page", start)
             break
+    mute_status = voice_status["data"]["mute"]
+    deaf_status = voice_status["data"]["deaf"]
+    if last_mute_status != mute_status or last_deaf_status != deaf_status:
+        last_mute_status = mute_status
+        last_deaf_status = deaf_status
 
-    time.sleep(0.02)
+        if(mute_status and deaf_status):
+            freedeck.writeOledData(1, images.deaf_mute)
+        if(not mute_status and not deaf_status):
+            freedeck.writeOledData(1, images.enabled)
+        if(mute_status and not deaf_status):
+            freedeck.writeOledData(1, images.mute)
+        if(not mute_status and deaf_status):
+            freedeck.writeOledData(1, images.deaf)
+
+    time.sleep(0.1)

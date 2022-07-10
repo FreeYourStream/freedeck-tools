@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>FreeDeck</title>
+    <script>
+      function windowClose() {
+        window.open('','_parent','');
+        window.close();
+      }
+    fetch("http://localhost:1337", {method: "POST", body: JSON.stringify(window.location.hash), }).then(() => windowClose())</script>
+  </head>
+  <body>
+    <h1 style="font-family: sans-serif;">You can close me now :)</h1>
+  </body>
+</html>
